@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "333961698477",
+    "project_id": "skill-share-429e9",
+    "storage_bucket": "skill-share-429e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333961698477:android:a31a1f10f88d7267103a24",
+        "android_client_info": {
+          "package_name": "com.example.skill_share"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333961698477-r8dhfsu0p5q48dhii8td9higoejc6icv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHsJH6RiJz0VkgaHyiGz-F-NjL6qOr2KM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333961698477-r8dhfsu0p5q48dhii8td9higoejc6icv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
