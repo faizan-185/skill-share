@@ -92,6 +92,14 @@ class _InboxState extends State<Inbox> {
                           backgroundImage: NetworkImage(groups[index]["profile_url"]),
                         ),
                         title: Text(groups[index]['user_name'], style: textStylePrimary15,),
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChatRoom(groupId: groups[index]['id']),
+                            ),
+                          );
+                        },
                       ),
                     );
                   },
