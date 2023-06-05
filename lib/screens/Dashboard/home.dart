@@ -24,8 +24,8 @@ class _HomeState extends State<Home> {
   bool loading = false;
   late final videoPlayerController;
   late final chewieController;
-  List<String> list = <String>['State', 'City', 'Country'];
-  String filter = "Country";
+  List<String> list = <String>['My State', 'My City', 'My Country'];
+  String filter = "My Country";
 
   Future<void> fetchUser(uid) async {
     setState(() {
@@ -135,7 +135,7 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Add Filters"),
+                  Text("Search Skills By: "),
                   SizedBox(width: 20,),
                   DropdownButton<String>(
                     value: filter,
@@ -155,21 +155,21 @@ class _HomeState extends State<Home> {
                       });
                       await fetchUser(MyUser.uid).then((value) async {
                         List<Map<String, dynamic>>newUsers = [];
-                        if(filter == "Country"){
+                        if(filter == "My Country"){
                           users.forEach((u) {
                             if(u['country'].toLowerCase() == MyUser.country.toLowerCase()) {
                               newUsers.add(u);
                             }
                           });
                         }
-                        else if(filter == "State"){
+                        else if(filter == "My State"){
                           users.forEach((u) {
                             if(u['state'].toLowerCase() == MyUser.state.toLowerCase()) {
                               newUsers.add(u);
                             }
                           });
                         }
-                        else if(filter == "City"){
+                        else if(filter == "My City"){
                           users.forEach((u) {
                             if(u['city'].toLowerCase() == MyUser.city.toLowerCase()) {
                               print("match");
