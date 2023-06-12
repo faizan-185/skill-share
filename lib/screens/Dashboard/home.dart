@@ -24,8 +24,8 @@ class _HomeState extends State<Home> {
   bool loading = false;
   late final videoPlayerController;
   late final chewieController;
-  List<String> list = <String>['My State', 'My City', 'My Country'];
-  String filter = "My Country";
+  List<String> list = <String>['ALL', 'Abu Dhabi', 'Dubai', 'Sharjah', 'Ajman', 'Umm Al Quwain', 'Ras Al Khaimah', 'Fujairah'];
+  String filter = "ALL";
 
   Future<void> fetchUser(uid) async {
     setState(() {
@@ -99,11 +99,12 @@ class _HomeState extends State<Home> {
           }
       });
     });
-    await Future.delayed(const Duration(seconds: 4));
-
-    setState(() {
-      loading = false;
+    await Future.delayed(const Duration(seconds: 4)).then((value) {
+      setState(() {
+        loading = false;
+      });
     });
+
   }
 
 
@@ -127,7 +128,7 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Skill Share", style: titleText,),
+              Text("Training & Skill Share", style: titleText,),
               Text("Top Skills Picked For You", style: subTitle,),
               const SizedBox(height: 10,),
               users.isEmpty ? const Text("") : const Text("Long Press on name to view profile", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
@@ -135,7 +136,7 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Search Skills By: "),
+                  const Text("Search Skills By States: "),
                   SizedBox(width: 20,),
                   DropdownButton<String>(
                     value: filter,
@@ -155,24 +156,12 @@ class _HomeState extends State<Home> {
                       });
                       await fetchUser(MyUser.uid).then((value) async {
                         List<Map<String, dynamic>>newUsers = [];
-                        if(filter == "My Country"){
-                          users.forEach((u) {
-                            if(u['country'].toLowerCase() == MyUser.country.toLowerCase()) {
-                              newUsers.add(u);
-                            }
-                          });
+                        if(filter == "ALL"){
+                          newUsers = users;
                         }
-                        else if(filter == "My State"){
+                        else{
                           users.forEach((u) {
-                            if(u['state'].toLowerCase() == MyUser.state.toLowerCase()) {
-                              newUsers.add(u);
-                            }
-                          });
-                        }
-                        else if(filter == "My City"){
-                          users.forEach((u) {
-                            if(u['city'].toLowerCase() == MyUser.city.toLowerCase()) {
-                              print("match");
+                            if(u['state'].toLowerCase() == filter.toLowerCase()) {
                               newUsers.add(u);
                             }
                           });
@@ -192,12 +181,19 @@ class _HomeState extends State<Home> {
                 ],
               ),
               const SizedBox(height: 20,),
-              users.isEmpty ? const Center(child: Text("We cannot find skills matching your interests."),) : ListView.builder(
+              users.isEmpty   ? const Center(child: Text("We cannot find skills matching your interests."),) : ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: users.length,
                 itemBuilder: (BuildContext context, int index){
-                  List<String> images = users[index]['images'].isEmpty ? [users[index]['cover_url']] : users[index]['images'];
+                  List<String> images = [];
+                  if(users[index]['images']!=null && users[index]['cover_url']!=null)
+                    {
+                      images = users[index]['images'].isEmpty ? [users[index]['cover_url']] : users[index]['images'];
+                    }
+                  else{
+                    images = ["https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930"];
+                  }
                   List<String> my_skills = users[index]['skills'];
                   return Card(
                     elevation: 3,
@@ -248,7 +244,7 @@ class _HomeState extends State<Home> {
                             },
                             child: ExpansionTile(
                               leading: CircleAvatar(
-                                backgroundImage: NetworkImage(users[index]['profile_url']),
+                                backgroundImage: NetworkImage(users[index]['profile_url'] ?? "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930"),
                               ),
                               title: Text("${users[index]['first_name']} ${users[index]['last_name']}", style: textStylePrimary15Light,),
                               subtitle: Text(users[index]['bio']),

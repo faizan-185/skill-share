@@ -29,10 +29,10 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: SizedBox(
           child: DefaultTextStyle(
-            style: const TextStyle(color: kWhiteColor, fontSize: 38, fontWeight: FontWeight.w700),
+            style: const TextStyle(color: kWhiteColor, fontSize: 25, fontWeight: FontWeight.w700),
             child: AnimatedTextKit(
               animatedTexts: [
-                TyperAnimatedText('SKILL SHARE', speed: Duration(milliseconds: 350)),
+                TyperAnimatedText('TRAINING & SKILL DEVELOPMENT', speed: Duration(milliseconds: 200)),
               ],
             ),
           ),
